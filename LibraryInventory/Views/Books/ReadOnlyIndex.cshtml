@@ -1,0 +1,49 @@
+﻿@model IEnumerable<LibraryInventory.Dto.BookDto>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h2>Books</h2>
+
+@if (Model == null || Model.Count() <= 0)
+{
+    <div>
+        <span class="text-danger">No records available.</span>
+    </div>
+}
+else
+{
+    <table id="books" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Published Date</th>
+                <th>Available Books</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.AuthorName</td>
+                    <td>@book.Genre?.Name</td>
+                    <td>@book.PublishDate?.ToShortDateString()</td>
+                    <td>@book.NumberInStock</td>                   
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $('#books').DataTable({});
+        });
+    </script>
+}

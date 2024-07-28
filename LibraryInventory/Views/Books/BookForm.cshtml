@@ -1,0 +1,50 @@
+﻿@model LibraryInventory.ViewModels.BookFormViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h2>@Model.HeadingTitle</h2>
+
+<form asp-controller="Books" asp-action="Save" method="post">
+        <div class="form-group">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AuthorFirstName"></label>
+            <input asp-for="AuthorFirstName" class="form-control" />
+            <span asp-validation-for="AuthorFirstName"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AuthorLastName"></label>
+            <input asp-for="AuthorLastName" class="form-control" />
+            <span asp-validation-for="AuthorLastName"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublishDate"></label>
+            <input asp-for="PublishDate" class="form-control" />
+            <span asp-validation-for="PublishDate"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="GenreId"></label>
+            @Html.DropDownListFor(m => m.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Select a Genre", new { @class = "form-control" })          
+            <span asp-validation-for="GenreId"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NumberInStock"></label>
+            <input asp-for="NumberInStock" class="form-control" />
+            <span asp-validation-for="NumberInStock"></span>
+        </div>
+
+        @Html.HiddenFor(m => m.Id)
+
+        @Html.AntiForgeryToken()
+
+        <button type ="submit" class="btn btn-lg btn-success">Submit</button>
+</form>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
